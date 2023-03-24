@@ -9,7 +9,7 @@ function main() {
     const app = Express();
 
     app.get('/', (req, res) => {
-        res.send('Hello Dart!');
+        res.send('Hello js!');
     });
     
     app.get('/ls', async (req, res) => {

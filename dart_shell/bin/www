@@ -6,7 +6,7 @@ main() {
   final app = Alfred(logLevel: LogType.warn);
 
   app.get('/', (req, res) {
-    res.send('Hello JS!');
+    res.send('Hello dart!');
   });
 
   app.get('/ls', (req, res) {
