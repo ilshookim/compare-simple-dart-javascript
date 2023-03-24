@@ -1,0 +1,19 @@
+name: dart_shell
+description: A sample command-line application.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: '>=2.19.1 <3.0.0'
+
+dependencies:
+#   path: ^1.8.0
+  # Dart console SDK - write console (cli) apps/scripts using dart.
+  dcli: ^2.0.1
+
+  # A performant, expressjs like web server / rest api framework thats easy to use and has all the bits in one place.
+  alfred: ^1.1.0+1
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.21.0

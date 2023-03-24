@@ -1,0 +1,31 @@
+const Util = require('util');
+const exec = Util.promisify(require('child_process').exec);
+const Express = require('express')
+
+if (require.main === module) main();
+
+function main() {
+    const port = 3000;
+    const app = Express();
+
+    app.get('/', (req, res) => {
+        res.send('Hello World!');
+    });
+    
+    app.get('/ls', async (req, res) => {
+        res.send(await shell('ls -al'));
+    });
+    
+    app.get('/git-version', async (req, res) => {
+        res.send(await shell('git --version'));
+    });
+    
+    app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`);
+    });
+}
+
+async function shell(cmd) {
+    const { stdout, stderr } = await exec(cmd);
+    return stderr || stdout;
+}

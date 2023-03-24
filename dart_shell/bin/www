@@ -1,0 +1,29 @@
+import 'package:dcli/dcli.dart';
+import 'package:alfred/alfred.dart';
+
+main() {
+  final port = 3001;
+  final app = Alfred(logLevel: LogType.warn);
+
+  app.get('/', (req, res) {
+    res.send('Hello world');
+  });
+
+  app.get('/ls', (req, res) {
+    return shell('ls -al');
+  });
+
+  app.get('/git-version', (req, res) {
+    return shell('git --version');
+  });
+
+  app.listen(port).then((server) {
+    print('Example app listening on port ${port}');
+  });
+}
+
+shell(cmd) {
+    final lines = [];
+    '$cmd'.forEach((line) => lines.add(line));
+    return lines.join('\n');
+}
