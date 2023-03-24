@@ -9,7 +9,7 @@ function main() {
     const app = Express();
 
     app.get('/', (req, res) => {
-        res.send('Hello World!');
+        res.send('Hello Dart!');
     });
     
     app.get('/ls', async (req, res) => {
@@ -19,13 +19,23 @@ function main() {
     app.get('/git-version', async (req, res) => {
         res.send(await shell('git --version'));
     });
-    
+
+    app.get('/exec/:cmd', async (req, res) => {
+        const cmd = req.params.cmd || 'ls';
+        res.send(await shell(cmd));
+    });
+
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });
 }
 
 async function shell(cmd) {
-    const { stdout, stderr } = await exec(cmd);
-    return stderr || stdout;
+    try {
+        const { stdout, stderr } = await exec(cmd);
+        return stderr || stdout;
+    }
+    catch (exc) {
+        return `Unknown shell command: ${cmd}`;
+    }
 }

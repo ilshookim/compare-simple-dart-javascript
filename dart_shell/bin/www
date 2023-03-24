@@ -6,7 +6,7 @@ main() {
   final app = Alfred(logLevel: LogType.warn);
 
   app.get('/', (req, res) {
-    res.send('Hello world');
+    res.send('Hello JS!');
   });
 
   app.get('/ls', (req, res) {
@@ -17,13 +17,22 @@ main() {
     return shell('git --version');
   });
 
+  app.get('/exec/:cmd', (req, res) {
+    final cmd = req.params['cmd'] ?? 'ls';
+    return shell(cmd);
+  });
+
   app.listen(port).then((server) {
     print('Example app listening on port ${port}');
   });
 }
 
 shell(cmd) {
+  try {
     final lines = [];
     '$cmd'.forEach((line) => lines.add(line));
     return lines.join('\n');
+  } catch (exc) {
+    return 'Unknown shell command: ${cmd}';
+  }
 }
