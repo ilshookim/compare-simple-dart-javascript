@@ -10,10 +10,10 @@ COPY . /app
 # Ensure packages are still up-to-date if anything has changed
 RUN npm run release
 
-FROM scratch
-COPY --from=build /runtime/ /
+FROM node:18
+COPY --from=build /app/package-lock.json /app/package-lock.json
 COPY --from=build /app/package.json /app/package.json
-COPY --from=build /app/bin/www /app/www
+COPY --from=build /app/www /app/www
 
 WORKDIR /app
 EXPOSE 3000

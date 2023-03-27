@@ -14,10 +14,10 @@ RUN dart compile exe /app/bin/www -o /app/www
 
 # Build minimal serving image from AOT-compiled `/server` and required system
 # libraries and configuration files stored in `/runtime/` from the build stage.
-FROM scratch
+FROM node:18
 COPY --from=build /runtime/ /
 COPY --from=build /app/pubspec.yaml /app/pubspec.yaml
-COPY --from=build /app/bin/www /app/www
+COPY --from=build /app/www /app/www
 
 WORKDIR /app
 EXPOSE 3001

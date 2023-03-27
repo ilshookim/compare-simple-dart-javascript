@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "release": "pkg bin/www -o www",
+    "docker_build": "docker build --tag js_shell:1.0 .",
+    "docker_run": "docker run -d -p 3000:3000 --name js_shell js_shell:1.0",
+    "docker_rmi": "docker stop js_shell && docker rm js_shell && docker rmi js_shell:1.0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
